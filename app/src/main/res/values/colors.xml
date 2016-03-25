@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--transparent -->
+    <color name="color_00000000">#00000000</color>
+    <!-- black -->
+    <color name="color_000000">#000000</color>
+    <!-- white -->
+    <color name="color_ffffff">#ffffff</color>
+    <color name="color_818081">#818081</color>
+    <color name="color_808080">#808080</color>
+    <color name="color_237ef3">#237ef3</color>
+    <color name="color_374043">#374043</color>
+    <color name="color_6495ed">#6495ed</color>
+    <color name="color_2480f1">#2480f1</color>
+    <color name="color_88888888">#88888888</color>
+    <color name="color_cccccc">#cccccc</color>
+    <color name="color_e8f6ff">#e8f6ff</color>
+    <color name="color_eaebec">#eaebec</color>
+    <color name="color_c3c3c3">#c3c3c3</color>
+    <color name="color_a9a9a9">#a9a9a9</color>
+    <color name="color_2373f1">#2373f1</color>
+    <color name="color_f23529">#f23529</color>
+    <color name="color_f23428">#f23428</color>
+    <color name="color_19f23428">#19f23428</color>
+    <color name="color_d4d4d4">#d4d4d4</color>
+    <color name="color_eef2f3">#eef2f3</color>
+    <color name="color_ff6a15">#ff6a15</color>
+    <color name="color_f6f6f6">#f6f6f6</color>
+    <color name="color_2580f2">#2580f2</color>
+    <color name="color_c0ffbd21">#c0ffbd21</color>
+    <color name="color_38a8ff">#38a8ff</color>
+    <color name="color_797e80">#797e80</color>
+    <color name="color_247ff1">#247ff1</color>
+    <color name="color_c099cc00">#c099cc00</color>
+    <color name="color_b0000000">#b0000000</color>
+    <color name="color_cc0000">#cc0000</color>
+    <color name="color_9a999a">#9a999a</color>
+    <color name="color_60000000">#60000000</color>
+    <color name="color_3cd351">#3cd351</color>
+    <color name="color_d1ffffff">#d1ffffff</color>
+    <color name="color_eaebef">#eaebef</color>
+    <color name="color_cc797e80">#cc797e80</color>
+    <color name="color_f8f8f8">#f8f8f8</color>
+    <color name="color_206ef0">#206ef0</color>
+
+</resources>
