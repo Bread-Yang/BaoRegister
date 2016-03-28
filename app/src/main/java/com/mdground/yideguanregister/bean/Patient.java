@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mdground.yideguanregister.MedicalAppliction;
 
 import java.util.Date;
 
@@ -820,6 +821,21 @@ public class Patient implements Parcelable {
 	}
 
 	public Patient() {
+		Address = "";
+		ClinicID = MedicalAppliction.mLoginEmployee.getClinicID();
+		CompanyName = "";
+		Email = "";
+		EmergencyName = "";
+		EmergencyPhone = "";
+		EmergencyRelationship = "";
+		ForeignName = "";
+		IDCard = "";
+		MSN = "";
+		Nation = "";
+		PatientCode = "";
+		RegistrationTime = new Date();
+		SSN = "";
+		Title = "";
 	}
 
 	protected Patient(Parcel in) {

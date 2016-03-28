@@ -8,8 +8,6 @@ import com.google.gson.annotations.SerializedName;
 import com.mdground.yideguanregister.api.MdgAppliction;
 import com.mdground.yideguanregister.api.base.GlobalRequest;
 import com.mdground.yideguanregister.api.base.RequestCallBack;
-import com.mdground.yideguanregister.api.base.ResponseCode;
-import com.mdground.yideguanregister.api.base.ResponseData;
 import com.mdground.yideguanregister.api.bean.Device;
 
 /**
@@ -46,16 +44,17 @@ public class LoginEmployee extends GlobalRequest {
 		}
 		device.setDeviceID(appliction.getDeviceId());
 		String deviceToken = appliction.getDeviceToken();
-		if (deviceToken == null || deviceToken.equals("")) {
-			if (listener != null) {
-				ResponseData response = new ResponseData();
-				response.setCode(ResponseCode.AppCustom0.getValue());
-				response.setMessage("登录失败");
-				listener.onSuccess(response);
-				return;
-			}
-		}
-		device.setDeviceToken(deviceToken);
+//		if (deviceToken == null || deviceToken.equals("")) {
+//			if (listener != null) {
+//				ResponseData response = new ResponseData();
+//				response.setCode(ResponseCode.AppCustom0.getValue());
+//				response.setMessage("登录失败");
+//				listener.onSuccess(response);
+//				return;
+//			}
+//		}
+//		device.setDeviceToken(deviceToken);
+		device.setDeviceToken("abc");
 		LoginData loginData = new LoginData();
 		loginData.setLoginID(loginId);
 		loginData.setPwd(pwd);

@@ -1,7 +1,23 @@
 <resources>
-    <string name="app_name">YiDeGuanRegister</string>
+    <string name="app_name">医直达</string>
 
     <string name="request_fail">请求失败</string>
+
+    <!-- 登录 -->
+    <string name="log_out">注销</string>
+    <string name="login">登录</string>
+    <string name="account">账号</string>
+    <string name="password">密码</string>
+    <string name="logining">正在登录</string>
+    <string name="request_error">请求异常</string>
+
+    <!-- 挂号 -->
+    <string name="register">挂号</string>
+    <string name="birthday_no_more_than_today">生日不能大于今天!</string>
+    <string name="choose_birthday">请选择生日</string>
+    <string name="add">添加</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
 
     <!-- 更新 -->
     <string name="soft_update_no">已经是最新版本</string>

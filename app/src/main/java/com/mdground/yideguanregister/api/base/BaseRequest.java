@@ -164,7 +164,7 @@ public abstract class BaseRequest {
         data.setBusinessCode(getBusinessCode());
         data.setFunctionName(getFunctionName());
         data.setActionTimeSpan(System.currentTimeMillis() / 1000);
-        data.setPlatform(getPlatform());
+        data.setPlatform(DeviceUtils.getPlatformType(mContext));
 
         String serviceToken = "";
         if (mContext.getApplicationContext() instanceof MdgAppliction) {
@@ -209,15 +209,6 @@ public abstract class BaseRequest {
         }
 
         return entity;
-    }
-
-    private int getPlatform() {
-        boolean isPad = DeviceUtils.isPad(mContext);
-        if (isPad) {
-            return com.mdground.yideguanregister.api.base.PlatformType.ANDROID_PAD.value();
-        } else {
-            return com.mdground.yideguanregister.api.base.PlatformType.ANDROID_PHONE.value();
-        }
     }
 
     protected String appSign(com.mdground.yideguanregister.api.base.RequestData data) {

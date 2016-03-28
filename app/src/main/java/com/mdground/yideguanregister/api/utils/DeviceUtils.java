@@ -1,12 +1,12 @@
 package com.mdground.yideguanregister.api.utils;
 
-import java.util.Locale;
+import android.content.Context;
+import android.content.res.Configuration;
 
 import com.mdground.yideguanregister.api.base.PlatformType;
 import com.mdground.yideguanregister.api.bean.Device;
 
-import android.content.Context;
-import android.content.res.Configuration;
+import java.util.Locale;
 
 public class DeviceUtils {
 
@@ -22,12 +22,13 @@ public class DeviceUtils {
 
 	public static Device getDeviceInfo(Context context) {
 		Device device = new Device();
-		boolean isPad = DeviceUtils.isPad(context);
-		if (isPad) {
-			device.setPlatform(PlatformType.ANDROID_PAD.value());
-		} else {
-			device.setPlatform(PlatformType.ANDROID_PHONE.value());
-		}
+//		boolean isPad = DeviceUtils.isPad(context);
+//		if (isPad) {
+//			device.setPlatform(PlatformType.ANDROID_PAD.value());
+//		} else {
+//			device.setPlatform(PlatformType.ANDROID_PHONE.value());
+//		}
+		device.setPlatform(PlatformType.ANDROID_PAD.value());
 		// 设置android版本号
 		device.setPlatformVersion(android.os.Build.VERSION.RELEASE);
 		// 型号
@@ -42,11 +43,12 @@ public class DeviceUtils {
 	 * @return
 	 */
 	public static int getPlatformType(Context context) {
-		boolean isPad = DeviceUtils.isPad(context);
-		if (isPad) {
-			return PlatformType.ANDROID_PAD.value();
-		} else {
-			return PlatformType.ANDROID_PHONE.value();
-		}
+//		boolean isPad = DeviceUtils.isPad(context);
+//		if (isPad) {
+//			return PlatformType.ANDROID_PAD.value();
+//		} else {
+//			return PlatformType.ANDROID_PHONE.value();
+//		}
+		return PlatformType.ANDROID_PAD.value();
 	}
 }
