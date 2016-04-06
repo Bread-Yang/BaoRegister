@@ -31,7 +31,7 @@ import java.util.List;
  */
 
 public class DoctorSelectListActivity extends BaseActivity implements OnClickListener, OnItemClickListener, DoctorSelectListView {
-	private ImageView TvBack;
+	private ImageView iv_back;
 	private Button btn_register;
 	private TextView BtConfirm;
 	private ListView doctorRoomListView;
@@ -55,7 +55,7 @@ public class DoctorSelectListActivity extends BaseActivity implements OnClickLis
 	public void findView() {
 		btn_register = (Button) this.findViewById(R.id.btn_register);
 		BtConfirm = (TextView) this.findViewById(R.id.comfirm);
-		TvBack = (ImageView) this.findViewById(R.id.back);
+		iv_back = (ImageView) this.findViewById(R.id.iv_back);
 		doctorRoomListView = (ListView) this.findViewById(R.id.doctor_list);
 	}
 
@@ -80,7 +80,7 @@ public class DoctorSelectListActivity extends BaseActivity implements OnClickLis
 	@Override
 	public void setListener() {
 		btn_register.setOnClickListener(this);
-		TvBack.setOnClickListener(this);
+		iv_back.setOnClickListener(this);
 		doctorRoomListView.setOnItemClickListener(this);
 	}
 
@@ -131,8 +131,8 @@ public class DoctorSelectListActivity extends BaseActivity implements OnClickLis
 			}
 			break;
 		}
-		case R.id.back: {
-			onBackPressed();
+		case R.id.iv_back: {
+			finish();
 			break;
 		}
 

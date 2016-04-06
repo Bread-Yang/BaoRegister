@@ -2,6 +2,7 @@
 <com.mdground.yideguanregister.view.ResizeLayout
     android:id="@+id/login_root_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
@@ -21,109 +22,80 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="256px"
-                android:layout_height="256px"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/app_icon"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="34px"
+                android:layout_marginTop="10dp"
                 android:text="@string/app_name"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#747474"
-                android:textSize="72px"/>
+                android:textSize="36dp"/>
 
             <LinearLayout
-                android:layout_width="600px"
-                android:layout_height="250px"
-                android:layout_marginTop="120px"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/box8_nor"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <com.mdground.yideguanregister.view.ClearEditText
+                    android:id="@+id/et_account"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/iv_account"
-                        android:layout_width="70px"
-                        android:layout_height="70px"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="30px"
-                        android:src="@drawable/id_nor"/>
-
-                    <EditText
-                        android:id="@+id/et_account"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="24px"
-                        android:layout_toRightOf="@+id/iv_account"
-                        android:background="@null"
-                        android:ems="10"
-                        android:hint="@string/account"
-                        android:inputType="textPersonName"
-                        android:maxLength="20"
-                        android:maxLines="1"
-                        android:textColor="#cc818081"
-                        android:textSize="40px"/>
-
-                </RelativeLayout>
+                    android:layout_height="60dp"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/id_nor"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/common_input_box_clear"
+                    android:hint="@string/account"
+                    android:inputType="text"
+                    android:longClickable="false"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="15dp"
+                    android:text="csys"/>
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="2px"
+                    android:layout_height="1dp"
                     android:background="#CDCDCD"/>
 
-                <RelativeLayout
+
+                <com.mdground.yideguanregister.view.ClearEditText
+                    android:id="@+id/et_password"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/lock_nor"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/common_input_box_clear"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:longClickable="false"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="15dp"/>
 
-                    <ImageView
-                        android:id="@+id/iv_password"
-                        android:layout_width="70px"
-                        android:layout_height="70px"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="30px"
-                        android:src="@drawable/lock_nor"/>
-
-                    <EditText
-                        android:id="@+id/et_password"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="24px"
-                        android:layout_toRightOf="@+id/iv_password"
-                        android:background="@null"
-                        android:ems="10"
-                        android:hint="@string/password"
-                        android:inputType="textPassword"
-                        android:maxLength="20"
-                        android:maxLines="1"
-                        android:textColor="#cc818081"
-                        android:textSize="40px"/>
-
-                </RelativeLayout>
             </LinearLayout>
 
             <Button
                 android:id="@+id/btn_login"
-                android:layout_width="620px"
-                android:layout_height="110px"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="34px"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/selector_btn_bg_blue_oval"
                 android:gravity="center"
                 android:onClick="onClick"
-                android:padding="20px"
                 android:text="@string/login"
                 android:textColor="#ffffff"
-                android:textSize="40px"/>
+                android:textSize="19sp"/>
         </LinearLayout>
     </ScrollView>
 

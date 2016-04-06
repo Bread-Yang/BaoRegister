@@ -149,28 +149,54 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 
 			@Override
 			public void onSuccess(ResponseData response) {
-				Employee employee = response.getContent(Employee.class);
- 
-				if (response.Code != 0) {
-					Toast.makeText(getApplicationContext(), "账号异常,请联系客服", Toast.LENGTH_LONG).show();
-					return;
+
+				ResponseCode responseCode = ResponseCode.valueOf(response.getCode());
+
+				switch (responseCode) {
+					case Normal: {
+						Employee employee = response.getContent(Employee.class);
+
+						if (((employee.getEmployeeRole() & Employee.DOCTOR) == 0
+								&& (employee.getEmployeeRole() & Employee.NURSE) == 0)) {
+							Toast.makeText(getApplicationContext(), "账号异常,请联系客服", Toast.LENGTH_LONG).show();
+							return;
+						}
+
+						((MedicalAppliction) LoginActivity.this.getApplication()).setLoginEmployee(employee);
+
+						new SharedPreferUtils(getApplicationContext()).put(SharedPreferUtils.ShareKey.DEVICE_ID, employee.getDeviceID());
+
+						PreferenceUtils.setPrefLong(getApplicationContext(), MemberConstant.LOGIN_EMPLOYEE,
+								employee.getEmployeeID());
+						PreferenceUtils.setPrefInt(getApplicationContext(), MemberConstant.LOGIN_STATUS,
+								MemberConstant.LOGIN_IN);
+						PreferenceUtils.setPrefString(getApplicationContext(), MemberConstant.USERNAME, employee.getLoginID());
+//						PreferenceUtils.setPrefString(getApplicationContext(), MemberConstant.PASSWORD, employee.getLoginPwd());
+						PreferenceUtils.setPrefString(getApplicationContext(), MemberConstant.PASSWORD, password);
+						PreferenceUtils.setPrefInt(getApplicationContext(), MemberConstant.DEVICE_ID, employee.getDeviceID());
+						MdgConfig.setDeviceId(employee.getDeviceID());
+						new DeviceIDUtil().saveDeviceIDToSDCard(employee.getDeviceID());
+
+						getClinic();
+
+						break;
+					}
+
+					case AppCustom0:
+					case AppCustom1:
+					case AppCustom2:
+					case AppCustom3:
+					case AppCustom4:
+					case AppCustom5:
+					case AppCustom6:
+					case AppCustom7:
+					case AppCustom8:
+					case AppCustom9: {
+						Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+						break;
+					}
 				}
 
-				((MedicalAppliction) LoginActivity.this.getApplication()).setLoginEmployee(employee);
-
-				new SharedPreferUtils(getApplicationContext()).put(SharedPreferUtils.ShareKey.DEVICE_ID, employee.getDeviceID());
-				
-				PreferenceUtils.setPrefLong(getApplicationContext(), MemberConstant.LOGIN_EMPLOYEE,
-                        employee.getEmployeeID());
-				PreferenceUtils.setPrefInt(getApplicationContext(), MemberConstant.LOGIN_STATUS,
-                        MemberConstant.LOGIN_IN);
-				PreferenceUtils.setPrefString(getApplicationContext(), MemberConstant.USERNAME, employee.getLoginID());
-				PreferenceUtils.setPrefString(getApplicationContext(), MemberConstant.PASSWORD, employee.getLoginPwd());
-				PreferenceUtils.setPrefInt(getApplicationContext(), MemberConstant.DEVICE_ID, employee.getDeviceID());
-                MdgConfig.setDeviceId(employee.getDeviceID());
-				new DeviceIDUtil().saveDeviceIDToSDCard(employee.getDeviceID());
-
-                getClinic();
 			}
 
 			@Override
@@ -184,7 +210,7 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 			}
 		});
 	}
-	
+
 	private void getClinic() {
 		new GetClinic(getApplicationContext()).getClinic(new RequestCallBack() {
             @Override

@@ -8,14 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.mdground.yizhida.R;
-import com.mdground.yizhida.bean.AppointmentInfo;
-import com.mdground.yizhida.util.Tools;
+import com.mdground.yideguanregister.R;
+import com.mdground.yideguanregister.bean.AppointmentInfo;
+import com.mdground.yideguanregister.util.Tools;
 
 /**
  * 挂号成功提框框
  * 
- * @author Vincent
+ * @author Vincentear
  * 
  */
 public class AppointmentDialog extends Dialog implements View.OnClickListener {

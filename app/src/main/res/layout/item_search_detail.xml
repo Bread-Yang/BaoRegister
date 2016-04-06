@@ -8,21 +8,20 @@
 
     <com.mdground.yideguanregister.view.CircleImageView
         android:id="@+id/head"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="240px"
+        android:layout_height="240px"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="25dp" />
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="75px" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="-1dp"
+        android:layout_marginTop="-3px"
         android:background="@drawable/box3_nor"
-        android:paddingBottom="25dp"
-        android:paddingRight="15dp"
-        android:paddingTop="25dp" >
+        android:paddingBottom="75px"
+        android:paddingTop="75px" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,7 +36,7 @@
                 android:lines="1"
                 android:text="王小明"
                 android:textColor="#374043"
-                android:textSize="22sp"
+                android:textSize="66px"
                 android:textStyle="bold" />
 
             <TextView
@@ -46,26 +45,27 @@
                 android:layout_height="wrap_content"
                 android:text="30岁/男"
                 android:textColor="#374043"
-                android:textSize="15sp" />
+                android:textSize="45px" />
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#9a999a"
-                android:textSize="15sp" />
+                android:textSize="45px" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/notext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="240px"
+            android:layout_height="240px"
+            android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="挂号"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#2480f1"
-            android:textSize="20sp" />
+            android:textSize="60px" />
     </RelativeLayout>
 
 </LinearLayout>

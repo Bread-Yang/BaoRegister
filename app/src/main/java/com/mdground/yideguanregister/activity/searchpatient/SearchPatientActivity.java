@@ -1,10 +1,8 @@
 package com.mdground.yideguanregister.activity.searchpatient;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,8 +22,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -48,6 +46,7 @@ import com.mdground.yideguanregister.bean.Patient;
 import com.mdground.yideguanregister.bean.Symptom;
 import com.mdground.yideguanregister.constant.MemberConstant;
 import com.mdground.yideguanregister.db.dao.SymptomDao;
+import com.mdground.yideguanregister.dialog.AppointmentDialog;
 import com.mdground.yideguanregister.dialog.BirthdayDatePickerDialog;
 import com.mdground.yideguanregister.util.DateUtils;
 import com.mdground.yideguanregister.util.PreferenceUtils;
@@ -71,13 +70,13 @@ import java.util.Locale;
 public class SearchPatientActivity extends BaseActivity implements OnItemClickListener, SearchPatientView, OnEditorActionListener, OnClickListener, DatePickerDialog.OnDateSetListener,
         ResizeLinearLayout.OnResizeListener {
 
-    private RelativeLayout rlt_birthday;
+    private LinearLayout llt_birthday, llt_btn;
 
     private EditText et_phone, et_name;
 
     private TextView tv_log_out, tv_sex, tv_birthday;
 
-    private Button btn_register;
+    private Button btn_register, btn_refill;
 
     /**
      * 搜索结果
@@ -85,6 +84,8 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
     private ListView lv_search_result;
 
     private ResizeLinearLayout searchRootLayout;
+
+    private AppointmentDialog mAppointmentDialog;
 
     private SearchDetailAdapter<Patient> searchDetailAdapter;
     private Employee loginEmployee;
@@ -95,6 +96,9 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
     private Dialog dialog_wheelView;
     private ImageView iv_close;
     private WheelView wheelView1;
+
+    private Dialog dialog_logout;
+    private EditText et_password;
 
     private SymptomDao mSymptomDao;
     private SearchPatientPresenter presenter;
@@ -146,27 +150,61 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
         tv_log_out = (TextView) this.findViewById(R.id.tv_log_out);
         tv_sex = (TextView) this.findViewById(R.id.tv_sex);
         tv_birthday = (TextView) this.findViewById(R.id.tv_birthday);
-        rlt_birthday = (RelativeLayout) findViewById(R.id.rlt_birthday);
+        llt_birthday = (LinearLayout) findViewById(R.id.llt_birthday);
+        llt_btn = (LinearLayout) findViewById(R.id.llt_btn);
         btn_register = (Button) findViewById(R.id.btn_register);
+        btn_refill = (Button) findViewById(R.id.btn_refill);
         lv_search_result = (ListView) this.findViewById(R.id.search_result_listview);
         searchRootLayout = (ResizeLinearLayout) findViewById(R.id.layout_root_search_patient);
         searchRootLayout.setOnResizeListener(this);
 
-        // 初始化dialog及dialog里面的控件
-        dialog_wheelView = new Dialog(this, R.style.patient_detail_dialog);
-        dialog_wheelView.setContentView(R.layout.dialog_wheel_view);
+        mAppointmentDialog = new AppointmentDialog(this);
 
-        // 设置dialog弹入弹出的动画
-        Window window = dialog_wheelView.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT); // 填充满屏幕的宽度
-        window.setWindowAnimations(R.style.action_sheet_animation); // 添加动画
-        WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.BOTTOM; // 使dialog在底部显示
-        window.setAttributes(wlp);
+        {
+            // 初始化dialog及dialog里面的控件
+            dialog_wheelView = new Dialog(this, R.style.patient_detail_dialog);
+            dialog_wheelView.setContentView(R.layout.dialog_wheel_view);
 
-        iv_close = (ImageView) dialog_wheelView.findViewById(R.id.iv_close);
+            // 设置dialog弹入弹出的动画
+            Window window = dialog_wheelView.getWindow();
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT); // 填充满屏幕的宽度
+            window.setWindowAnimations(R.style.action_sheet_animation); // 添加动画
+            WindowManager.LayoutParams wlp = window.getAttributes();
+            wlp.gravity = Gravity.BOTTOM; // 使dialog在底部显示
+            window.setAttributes(wlp);
 
-        wheelView1 = (WheelView) dialog_wheelView.findViewById(R.id.wheelview1);
+            iv_close = (ImageView) dialog_wheelView.findViewById(R.id.iv_close);
+
+            wheelView1 = (WheelView) dialog_wheelView.findViewById(R.id.wheelview1);
+        }
+
+        {
+            dialog_logout = new Dialog(this, R.style.patient_detail_dialog);
+            dialog_logout.setContentView(R.layout.dialog_input);
+
+            et_password = (EditText) dialog_logout.findViewById(R.id.et_password);
+
+            dialog_logout.findViewById(R.id.btn_cancle).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog_logout.dismiss();
+                }
+            });
+
+            dialog_logout.findViewById(R.id.btn_sure).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog_logout.dismiss();
+
+                    String loginPassword = PreferenceUtils.getPrefString(SearchPatientActivity.this, MemberConstant.PASSWORD, null);
+                    if (loginPassword.equals(et_password.getText().toString())) {
+                        logout();
+                    } else {
+                        showToast(R.string.invalid_password);
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -200,7 +238,8 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
         tv_log_out.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
+                et_password.setText("");
+                dialog_logout.show();
             }
         });
 
@@ -210,7 +249,8 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
                 if (hasFocus) {
                     mHasSearch = false;
                     lv_search_result.setVisibility(View.GONE);
-                    btn_register.setVisibility(View.VISIBLE);
+                    llt_btn.setVisibility(View.VISIBLE);
+//                    btn_register.setVisibility(View.VISIBLE);
                 } else {
                     searchPatient();
                 }
@@ -266,45 +306,37 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
     }
 
     private void logout() {
-        final AlertDialog myDialog = new AlertDialog.Builder(this).setMessage("是否退出当前账号？")
-                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+        LogoutEmployee logoutEmployee = new LogoutEmployee(getApplicationContext());
+        logoutEmployee.logoutEmployee(new RequestCallBack() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        LogoutEmployee logoutEmployee = new LogoutEmployee(getApplicationContext());
-                        logoutEmployee.logoutEmployee(new RequestCallBack() {
+            @Override
+            public void onStart() {
+                // mView.showProgress();
+            }
 
-                            @Override
-                            public void onStart() {
-                                // mView.showProgress();
-                            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            }
 
-                            }
+            @Override
+            public void onFinish() {
 
-                            @Override
-                            public void onFinish() {
+            }
 
-                            }
-
-                            @Override
-                            public void onSuccess(ResponseData response) {
-                                if (response.getCode() == ResponseCode.Normal.getValue()) {
-                                    PreferenceUtils.setPrefInt(SearchPatientActivity.this, MemberConstant.LOGIN_STATUS,
-                                            MemberConstant.LOGIN_OUT);
-                                    PreferenceUtils.setPrefString(SearchPatientActivity.this, MemberConstant.PASSWORD, "");
-                                    Intent intent = new Intent();
-                                    intent.setClass(SearchPatientActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-                        });
-                    }
-                }).setNeutralButton("取消", null).create();
-        myDialog.show();
+            @Override
+            public void onSuccess(ResponseData response) {
+                if (response.getCode() == ResponseCode.Normal.getValue()) {
+                    PreferenceUtils.setPrefInt(SearchPatientActivity.this, MemberConstant.LOGIN_STATUS,
+                            MemberConstant.LOGIN_OUT);
+                    PreferenceUtils.setPrefString(SearchPatientActivity.this, MemberConstant.PASSWORD, "");
+                    Intent intent = new Intent();
+                    intent.setClass(SearchPatientActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
 
     public void showDetail(boolean isDetail) {
@@ -392,10 +424,10 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rlt_birthday:
+            case R.id.llt_birthday:
                 showDialog();
                 break;
-            case R.id.rlt_sex:
+            case R.id.llt_sex:
                 dialog_wheelView.show();
                 if (StringUtils.isEmpty(tv_sex.getText().toString())) {
                     tv_sex.setText(mSexArray[0]);
@@ -439,7 +471,10 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
                 } else {
                     savePatient();
                 }
+                break;
 
+            case R.id.btn_refill:
+                resetView();
                 break;
         }
     }
@@ -465,6 +500,19 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
             mPatient.setPatientName(et_name.getText().toString());
         }
 
+        // 性别
+        if (StringUtils.isEmpty(tv_sex.getText().toString())) {
+            showToast(R.string.choose_gender);
+            return;
+        }
+        int currentSelectedIndex = wheelView1.getCurrentItem();
+
+        if (currentSelectedIndex == 0) {
+            mPatient.setGender(1);
+        } else {
+            mPatient.setGender(2);
+        }
+
         // 生日
         if (tv_birthday.getText() == null || tv_birthday.getText().toString().equals("")) {
             showToast(R.string.choose_birthday);
@@ -472,15 +520,6 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
         } else {
             mPatient.setDOB(DateUtils.toDate(tv_birthday.getText().toString(),
                     new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)));
-        }
-
-        // 性别
-        int currentSelectedIndex = wheelView1.getCurrentItem();
-
-        if (currentSelectedIndex == 0) {
-            mPatient.setGender(1);
-        } else {
-            mPatient.setGender(2);
         }
     }
 
@@ -504,6 +543,7 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
             @Override
             public void onSuccess(ResponseData response) {
                 if (response.getCode() == ResponseCode.Normal.getValue()) {
+                    mPatient = response.getContent(Patient.class);
                     createAppointment(mPatient);
                 }
             }
@@ -520,7 +560,8 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
         appointmentInfo.setPatientID(patient.getPatientID());
 
         lv_search_result.setVisibility(View.GONE);
-        btn_register.setVisibility(View.VISIBLE);
+        llt_btn.setVisibility(View.VISIBLE);
+//        btn_register.setVisibility(View.VISIBLE);
 
         Intent intent = new Intent();
         intent.setClass(this, DoctorSelectListActivity.class);
@@ -549,6 +590,14 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
         startActivityForResult(intent, MemberConstant.APPIONTMENT_REQUEST_CODE);
     }
 
+    private void resetView() {
+        et_phone.requestFocus();
+        et_phone.setText("");
+        et_name.setText("");
+        tv_sex.setText("");
+        tv_birthday.setText("");
+    }
+
     // 只传递结果，不处理结果值
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -557,9 +606,13 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
 //            finish();
 //        }
         setResult(resultCode, data);
-        et_phone.setText("");
-        et_name.setText("");
-        tv_birthday.setText("");
+
+        resetView();
+
+        if (resultCode == MemberConstant.APPIONTMENT_REQUEST_CODE) { // 医生端只提示一个，预约成功,护士端提示挂号成功提示框
+            AppointmentInfo appointmentInfo = data.getParcelableExtra(MemberConstant.APPOINTMENT);
+            mAppointmentDialog.show(appointmentInfo);
+        }
     }
 
     @Override
@@ -575,7 +628,8 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
                 InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 im.hideSoftInputFromWindow(et_phone.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 lv_search_result.setVisibility(View.VISIBLE);
-                btn_register.setVisibility(View.GONE);
+                llt_btn.setVisibility(View.GONE);
+//                btn_register.setVisibility(View.GONE);
 
                 searchDetailAdapter.notifyDataSetChanged();
             } else {

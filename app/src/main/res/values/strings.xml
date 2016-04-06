@@ -10,14 +10,28 @@
     <string name="password">密码</string>
     <string name="logining">正在登录</string>
     <string name="request_error">请求异常</string>
+    <string name="password_of_account">帐号密码</string>
+    <string name="log_out_text">退出登录</string>
+    <string name="invalid_password">密码错误</string>
 
     <!-- 挂号 -->
     <string name="register">挂号</string>
+    <string name="phone_number">手机</string>
     <string name="birthday_no_more_than_today">生日不能大于今天!</string>
     <string name="choose_birthday">请选择生日</string>
+    <string name="choose_gender">请选择性别</string>
     <string name="add">添加</string>
     <string name="male">男</string>
     <string name="female">女</string>
+    <string name="refill">重填</string>
+
+    <!-- 挂号成功对话框 -->
+    <string name="dialog_regist_success">成功挂号</string>
+    <string name="dialog_regist_wait_people">前面等待人数：%d人</string>
+
+    <!-- 通用文字,频繁使用文字 -->
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
 
     <!-- 更新 -->
     <string name="soft_update_no">已经是最新版本</string>

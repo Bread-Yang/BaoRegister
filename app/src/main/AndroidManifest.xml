@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     package="com.mdground.yideguanregister"
+    android:versionName="2.4.3.29"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,13 +25,13 @@
     <application
         android:name=".MedicalAppliction"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon2"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -40,10 +41,10 @@
         </activity>
         <activity
             android:name=".activity.searchpatient.SearchPatientActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.doctorlist.DoctorSelectListActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

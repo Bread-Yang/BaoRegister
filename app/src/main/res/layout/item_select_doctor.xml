@@ -11,54 +11,54 @@
 
     <com.mdground.yideguanregister.view.CircleImageView
         android:id="@+id/doctor_icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_width="240px"
+        android:layout_height="240px"
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="75px"
+        android:layout_marginTop="45px"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-1dp"
+        android:layout_marginBottom="-3px"
         android:background="@drawable/box3_nor"
-        android:paddingBottom="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="15dp">
+        android:paddingBottom="45px"
+        android:paddingRight="45px"
+        android:paddingTop="45px">
 
         <LinearLayout
             android:id="@+id/basic_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="75px"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/doctor_name"
-                android:layout_width="114dp"
+                android:layout_width="342px"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_374043"
-                android:textSize="22sp"
+                android:textSize="66px"
                 tools:text="李一全"/>
 
             <TextView
                 android:id="@+id/doctor_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="21px"
                 android:ellipsize="end"
                 android:ems="12"
                 android:lines="1"
                 android:textColor="@color/color_374043"
-                android:textSize="15sp"
+                android:textSize="45px"
                 tools:text="李一全李一全李一全李一全李一全李一全李一全"/>
         </LinearLayout>
 
         <ImageView
             android:id="@+id/selcted_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150px"
+            android:layout_height="150px"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/sel_icon"
@@ -74,7 +74,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="100dp"
+                android:layout_width="300px"
                 android:layout_height="wrap_content"
                 android:gravity="right">
 
@@ -84,27 +84,27 @@
                     android:layout_height="wrap_content"
                     android:text="80"
                     android:textColor="@color/color_374043"
-                    android:textSize="36sp"
+                    android:textSize="108px"
                     android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginLeft="12px"
                     android:text="人"
                     android:textColor="@color/color_374043"
-                    android:textSize="15sp"/>
+                    android:textSize="45px"/>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/waiting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="27px"
                 android:text="候诊"
                 android:textColor="@color/color_818081"
-                android:textSize="15sp"/>
+                android:textSize="45px"/>
         </LinearLayout>
     </RelativeLayout>
 

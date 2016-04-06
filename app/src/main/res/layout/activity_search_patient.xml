@@ -2,6 +2,7 @@
 <com.mdground.yideguanregister.view.ResizeLinearLayout
     android:id="@+id/layout_root_search_patient"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -10,9 +11,8 @@
     <RelativeLayout
         android:id="@+id/head_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/top_bg1"
-        android:padding="5dp">
+        android:layout_height="160px"
+        android:background="@drawable/top_bg1">
 
         <TextView
             android:id="@+id/head_title"
@@ -21,19 +21,20 @@
             android:layout_centerInParent="true"
             android:text="@string/register"
             android:textColor="#FFFFFF"
-            android:textSize="22sp"/>
+            android:textSize="70px"/>
 
         <TextView
             android:id="@+id/tv_log_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="220px"
+            android:layout_height="200px"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10px"
             android:clickable="true"
+            android:gravity="center"
             android:text="@string/log_out"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"/>
+            android:textSize="55px"/>
     </RelativeLayout>
 
 
@@ -46,134 +47,139 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/rlt_phone"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="-1dp"
+                android:layout_height="160px"
+                android:layout_marginBottom="-3px"
                 android:background="@drawable/box3_nor"
-                android:padding="10dp">
-
-                <View
-                    android:id="@+id/view_phone"
-                    android:layout_width="8dp"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"/>
+                android:gravity="center_vertical"
+                android:padding="30px">
 
                 <TextView
                     android:id="@+id/phone_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/view_phone"
-                    android:text="手机"
-                    android:textSize="20sp"/>
+                    android:layout_weight="7"
+                    android:text="@string/phone_number"
+                    android:textSize="70px"
+                    android:textStyle="bold"/>
 
                 <EditText
                     android:id="@+id/et_phone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_weight="3"
                     android:background="@null"
                     android:ems="10"
-                    android:gravity="right"
                     android:imeOptions="actionSearch"
                     android:inputType="phone"
                     android:lines="1"
                     android:maxLength="11"
-                    android:singleLine="true"/>
-            </RelativeLayout>
+                    android:singleLine="true"
+                    android:textSize="70px"
+                    android:textStyle="bold"
+                    tools:text="100"/>
+            </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/rlt_name"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="-1dp"
+                android:layout_height="160px"
+                android:layout_marginBottom="-3px"
                 android:background="@drawable/box3_nor"
-                android:padding="10dp">
+                android:gravity="center_vertical"
+                android:padding="30px">
 
                 <TextView
                     android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_weight="7"
                     android:text="姓名"
-                    android:textSize="20sp"/>
+                    android:textSize="70px"
+                    android:textStyle="bold"/>
 
                 <EditText
                     android:id="@+id/et_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:layout_weight="3"
                     android:background="@null"
                     android:ems="10"
-                    android:gravity="right"
                     android:lines="1"
-                    android:singleLine="true"/>
-            </RelativeLayout>
+                    android:singleLine="true"
+                    android:textSize="70px"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/rlt_sex"
+            <LinearLayout
+                android:id="@+id/llt_sex"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="-1dp"
+                android:layout_height="160px"
+                android:layout_marginBottom="-3px"
                 android:background="@drawable/box3_nor"
+                android:gravity="center_vertical"
                 android:onClick="onClick"
-                android:padding="10dp">
-
-                <View
-                    android:id="@+id/view_sex"
-                    android:layout_width="8dp"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"/>
+                android:padding="30px">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/view_sex"
+                    android:layout_weight="7"
                     android:text="性别"
-                    android:textSize="20sp"/>
+                    android:textSize="70px"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_sex"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_weight="3"
                     android:textColor="@color/color_374043"
-                    android:textSize="18sp"/>
-            </RelativeLayout>
+                    android:textSize="70px"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/rlt_birthday"
+            <LinearLayout
+                android:id="@+id/llt_birthday"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="-1dp"
+                android:layout_height="160px"
+                android:layout_marginBottom="-3px"
                 android:background="@drawable/box3_nor"
+                android:gravity="center_vertical"
                 android:onClick="onClick"
-                android:padding="10dp">
+                android:padding="30px">
 
                 <TextView
                     android:id="@+id/tv_birthday_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_weight="7"
                     android:text="生日"
-                    android:textSize="20sp"/>
+                    android:textSize="70px"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_birthday"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_weight="3"
                     android:focusableInTouchMode="false"
                     android:textColor="@color/color_374043"
-                    android:textSize="18sp"/>
-            </RelativeLayout>
+                    android:textSize="70px"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -181,27 +187,43 @@
             android:id="@+id/search_result_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="165px"
             android:background="@color/color_ffffff"
+            android:divider="@null"
             android:listSelector="@color/color_00000000"
             android:visibility="gone"/>
 
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
+        <LinearLayout
+            android:id="@+id/llt_btn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/selector_btn_bg_green_oval"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:padding="20px"
-            android:text="@string/register"
-            android:textColor="#ffffff"
-            android:textSize="20dp"/>
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="-6px"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_bg_green_rectangle"
+                android:onClick="onClick"
+                android:text="@string/register"
+                android:textColor="@color/color_ffffff"
+                android:textSize="70px"/>
+
+            <Button
+                android:id="@+id/btn_refill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/selector_btn_bg_blue_swell"
+                android:onClick="onClick"
+                android:text="@string/refill"
+                android:textColor="@color/color_ffffff"
+                android:textSize="70px"/>
+        </LinearLayout>
 
     </RelativeLayout>
 

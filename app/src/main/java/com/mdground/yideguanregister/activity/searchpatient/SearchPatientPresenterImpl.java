@@ -32,12 +32,10 @@ public class SearchPatientPresenterImpl implements SearchPatientPresenter {
 
 			@Override
 			public void onStart() {
-				mView.showProgress();
 			}
 
 			@Override
 			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-				mView.hideProgress();
 				mView.showToast(R.string.request_error);
 			}
 
