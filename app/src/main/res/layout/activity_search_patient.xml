@@ -15,6 +15,17 @@
         android:background="@drawable/top_bg1">
 
         <TextView
+            android:id="@+id/tv_upgrade"
+            android:layout_width="220px"
+            android:layout_height="200px"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/soft_update_updatebtn"
+            android:textColor="#FFFFFF"
+            android:textSize="55px"/>
+
+        <TextView
             android:id="@+id/head_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

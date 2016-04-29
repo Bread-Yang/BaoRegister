@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,6 +41,7 @@ import com.mdground.yideguanregister.api.base.ResponseCode;
 import com.mdground.yideguanregister.api.base.ResponseData;
 import com.mdground.yideguanregister.api.server.clinic.GetPatient;
 import com.mdground.yideguanregister.api.server.clinic.SavePatient;
+import com.mdground.yideguanregister.api.server.global.GetAndroidRegistersScreenVersion;
 import com.mdground.yideguanregister.api.server.global.LogoutEmployee;
 import com.mdground.yideguanregister.bean.AppointmentInfo;
 import com.mdground.yideguanregister.bean.Employee;
@@ -51,6 +54,7 @@ import com.mdground.yideguanregister.dialog.BirthdayDatePickerDialog;
 import com.mdground.yideguanregister.util.DateUtils;
 import com.mdground.yideguanregister.util.PreferenceUtils;
 import com.mdground.yideguanregister.util.StringUtils;
+import com.mdground.yideguanregister.util.UpdateUtils;
 import com.mdground.yideguanregister.view.ResizeLinearLayout;
 import com.mdground.yideguanregister.view.wheelview.OnWheelScrollListener;
 import com.mdground.yideguanregister.view.wheelview.WheelView;
@@ -59,6 +63,8 @@ import com.mdground.yideguanregister.view.wheelview.adapters.ArrayWheelAdapter;
 import com.socks.library.KLog;
 
 import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -242,6 +248,61 @@ public class SearchPatientActivity extends BaseActivity implements OnItemClickLi
                 dialog_logout.show();
             }
         });
+
+        findViewById(R.id.tv_upgrade).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PackageManager packageManager = getPackageManager();
+                // getPackageName()是你当前类的包名，0代表是获取版本信息
+                PackageInfo packInfo = null;
+                try {
+                    packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+                    String versionName = packInfo.versionName;
+
+                    new GetAndroidRegistersScreenVersion(getApplicationContext()).getAndroidVersion(versionName, new RequestCallBack() {
+                        @Override
+                        public void onStart() {
+                            showProgress();
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            hideProgress();
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            hideProgress();
+                        }
+
+                        @Override
+                        public void onSuccess(ResponseData response) {
+                            if (!StringUtils.isEmpty(response.getContent())) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.getContent());
+
+                                    String link = jsonObject.getString("Link");
+                                    String version = jsonObject.getString("Version");
+
+                                    UpdateUtils updateUtils = new UpdateUtils(SearchPatientActivity.this);
+                                    updateUtils.mDownloadLink = link;
+
+                                    updateUtils.showNoticeDialog();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                Toast.makeText(SearchPatientActivity.this, R.string.soft_update_no, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         et_phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
