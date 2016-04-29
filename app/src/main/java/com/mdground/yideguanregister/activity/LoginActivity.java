@@ -18,6 +18,7 @@ import com.mdground.yideguanregister.activity.searchpatient.SearchPatientActivit
 import com.mdground.yideguanregister.api.base.RequestCallBack;
 import com.mdground.yideguanregister.api.base.ResponseCode;
 import com.mdground.yideguanregister.api.base.ResponseData;
+import com.mdground.yideguanregister.api.bean.Device;
 import com.mdground.yideguanregister.api.server.clinic.GetClinic;
 import com.mdground.yideguanregister.api.server.global.LoginEmployee;
 import com.mdground.yideguanregister.api.utils.DeviceIDUtil;
@@ -140,7 +141,11 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 
 	private void login(final String userName, final String password) {
 
-		new LoginEmployee(this).loginEmployee(userName, password, DeviceUtils.getDeviceInfo(getApplicationContext()), new RequestCallBack() {
+		Device device = DeviceUtils.getDeviceInfo(getApplicationContext());
+
+		device.setDeviceID(new DeviceIDUtil().getDeviceID());
+
+		new LoginEmployee(this).loginEmployee(userName, password, device, new RequestCallBack() {
 
 			@Override
 			public void onStart() {
@@ -158,6 +163,7 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 
 						if (((employee.getEmployeeRole() & Employee.DOCTOR) == 0
 								&& (employee.getEmployeeRole() & Employee.NURSE) == 0)) {
+							mLoadIngDialog.dismiss();
 							Toast.makeText(getApplicationContext(), "账号异常,请联系客服", Toast.LENGTH_LONG).show();
 							return;
 						}
@@ -192,6 +198,7 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 					case AppCustom7:
 					case AppCustom8:
 					case AppCustom9: {
+						mLoadIngDialog.dismiss();
 						Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
 						break;
 					}
@@ -201,12 +208,11 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 
 			@Override
 			public void onFinish() {
-				mLoadIngDialog.dismiss();
 			}
 
 			@Override
 			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+				mLoadIngDialog.dismiss();
 			}
 		});
 	}
@@ -220,12 +226,12 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+				mLoadIngDialog.dismiss();
             }
 
             @Override
             public void onFinish() {
-
+				mLoadIngDialog.dismiss();
             }
 
             @Override
